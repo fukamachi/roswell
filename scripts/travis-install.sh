@@ -51,3 +51,4 @@ echo "(:tree \"$LOCAL_LISP_TREE/\")" >> "$ASDF_SR_CONF_FILE"
 
 # PATH
 echo "PATH=$HOME/.roswell/bin:$PATH" >> ~/.bashrc
+export PATH=$HOME/.roswell/bin:$PATH
