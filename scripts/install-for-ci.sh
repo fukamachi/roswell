@@ -10,6 +10,7 @@ ROSWELL_DIR=$HOME/roswell
 ROSWELL_REPO=${ROSWELL_REPO:-https://github.com/snmsts/roswell}
 ROSWELL_BRANCH=${ROSWELL_BRANCH:-release}
 ROSWELL_INSTALL_DIR=${ROSWELL_INSTALL_DIR:-/usr/local/}
+ROSWELL_REQUIRE_SUDO=${ROSWELL_REQUIRE_SUDO:-1}
 
 echo "Installing Roswell..."
 
@@ -20,7 +21,11 @@ cd $ROSWELL_DIR
 sh bootstrap
 ./configure --prefix=$ROSWELL_INSTALL_DIR
 make
-sudo make install
+if [ "$ROSWELL_REQUIRE_SUDO" = 1 ]; then
+    sudo make install
+else
+    make install
+fi
 
 echo "Roswell has been installed."
 log "ros --version"
