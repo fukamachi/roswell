@@ -100,6 +100,11 @@ install_abcl () {
         install_script "$LISP_IMPLS_BIN/abcl" \
             "exec $java -Xmx4g -XX:MaxPermSize=1g -cp \"$ABCL_DIR/abcl-contrib.jar\" -jar \"$ABCL_DIR/abcl.jar\" \"\$@\""
     fi
+
+    # Install jna beforehand because ABCL doesn't work with the newer Maven
+    # http://abcl.org/trac/ticket/390
+    mvn dependency:get -Dartifact=net.java.dev.jna:jna:4.1.0:jar
+
     PATH="$LISP_IMPLS_BIN:$PATH" ros use abcl/system
 }
 
