@@ -111,6 +111,7 @@ if which sudo >/dev/null; then
 fi
 
 install_roswell_bin () {
+    echo "Trying to install Roswell binary..."
     if uname -s | grep -e MSYS_NT >/dev/null; then
         if [ $ROSWELL_BRANCH = release ]; then
             fetch "https://github.com/roswell/roswell/releases/download/v$ROSWELL_RELEASE_VERSION/roswell_${ROSWELL_RELEASE_VERSION}_amd64.zip" /tmp/roswell.zip
@@ -132,11 +133,15 @@ install_roswell_bin () {
         fi
     elif [ `uname` = "Darwin" ] && [ $ROSWELL_BRANCH = release ]; then
         apt_unless_installed roswell
+    else
+        echo "Not binary installation is supported on this environment."
+        uname -s
     fi
 }
 
 install_roswell_src () {
     if ! which ros >/dev/null; then
+        echo "Trying to install Roswell from its source..."
         fetch "$ROSWELL_REPO/archive/$ROSWELL_BRANCH.tar.gz" "$ROSWELL_TARBALL_PATH"
         extract -z "$ROSWELL_TARBALL_PATH" "$ROSWELL_DIR"
         cd $ROSWELL_DIR
