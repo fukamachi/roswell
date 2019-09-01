@@ -112,7 +112,7 @@ fi
 
 install_roswell_bin () {
     echo "Trying to install Roswell binary..."
-    if uname -s | grep -e MSYS_NT >/dev/null; then
+    if uname -s | grep -E "MSYS_NT|MINGW" >/dev/null; then
         if [ $ROSWELL_BRANCH = release ]; then
             fetch "https://github.com/roswell/roswell/releases/download/v$ROSWELL_RELEASE_VERSION/roswell_${ROSWELL_RELEASE_VERSION}_amd64.zip" /tmp/roswell.zip
         else
